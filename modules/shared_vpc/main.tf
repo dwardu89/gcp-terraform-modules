@@ -38,19 +38,19 @@ resource "google_compute_network" "vpc" {
 
 # Create a subnetwork in the VPC
 resource "google_compute_subnetwork" "vpc_subnetwork" {
-  name                     = "k8s-${var.region}"
+  name                     = "gke-${var.region}"
   ip_cidr_range            = cidrsubnet(var.vpc_subnet_prefix, 8, 0)
   region                   = var.region
   network                  = "${google_compute_network.vpc.self_link}"
   private_ip_google_access = true
 
   secondary_ip_range {
-    range_name    = "k8s-${var.region}-pods"
+    range_name    = "gke-${var.region}-pods"
     ip_cidr_range = cidrsubnet(var.vpc_subnet_prefix, 1, 1)
   }
 
   secondary_ip_range {
-    range_name    = "k8s-${var.region}-services"
+    range_name    = "gke-${var.region}-services"
     ip_cidr_range = cidrsubnet(var.vpc_subnet_prefix, 3, 2)
   }
 }
