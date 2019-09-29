@@ -7,6 +7,7 @@ provider "google" {
 module "shared_vpc" {
   source                = "../../modules/shared_vpc"
   vpc_name              = "Test VPC Name"
+  region                = var.region
   host_project_name     = var.project_name
   host_project_id       = var.project_id
   service_project_names = ["service-project-1", "service-project-2"]
